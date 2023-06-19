@@ -1,4 +1,6 @@
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api.js';
+import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
 
 const refs = {
   breedSelect: document.querySelector('.breed-select'),
@@ -50,19 +52,12 @@ function showSelectedDbreed() {
       if (element.length > 0) {
         console.log('work');
         const catInfo = element[0];
-        console.log(catInfo);
         const catBreed = catInfo.breeds[0];
-        console.log(catBreed);
-        console.log(catInfo.url);
 
         refs.catImg.src = catInfo.url;
-        console.log(catInfo.url);
         refs.breedName.textContent = catBreed.name;
-        console.log(catBreed.name);
         refs.breedDescription.textContent = catBreed.breedDescription;
-        console.log(catBreed.breedDescription);
         refs.breedTemperament.textContent = catBreed.temperament;
-        console.log(catBreed.temperament);
 
         refs.infoContainer.style.display = 'flex';
       } else {
