@@ -1,6 +1,7 @@
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api.js';
 import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
+import './sass/index.css';
 
 const refs = {
   breedSelect: document.querySelector('.breed-select'),
@@ -10,17 +11,12 @@ const refs = {
   breedName: document.querySelector('.breed-name'),
   breedDescription: document.querySelector('.breed-description'),
   breedTemperament: document.querySelector('.breed-temperament'),
+  error: document.querySelector('.error'),
 };
 
-// refs.infoContainer.insertAdjacentHTML(
-//   'afterbegin',
-//   `<img class="cat-image" alt="Cat Image">
-//          <div class="cat-info-style">
-//           <h1 class="breed-name"></h1>
-//           <p class="breed-description"></p>
-//           <p class="breed-temperament"></p>
-//     </div>`
-// );
+refs.breedSelect.style.display = 'none';
+refs.infoContainer.style.display = 'none';
+refs.error.style.display = 'none';
 
 fetchBreeds()
   .then(breeds => {
@@ -35,22 +31,35 @@ fetchBreeds()
 
       refs.breedSelect.append(...options);
     } else {
-      console.log('No breeds found');
+      throw new Error('No breeds found');
     }
+    new SlimSelect({
+      select: '#single',
+    });
   })
   .catch(() => {
-    console.log('Oops! Something went wrong! Try reloading the page!');
+    Notiflix.Notify.failure(
+      'Oops',
+      'Something went wrong, try reloading the page',
+      'Ok'
+    );
+    error.style.display = 'block';
   })
-  .finally(() => {});
+  .finally(() => {
+    refs.loader.style.display = 'none';
+    refs.breedSelect.style.display = 'block';
+  });
 
 refs.breedSelect.addEventListener('change', showSelectedDbreed);
 
 function showSelectedDbreed() {
   const breedSelectedById = refs.breedSelect.value;
+  refs.infoContainer.style.display = 'none';
+  refs.loader.style.display = 'block';
+  refs.error.style.display = 'none';
   fetchCatByBreed(breedSelectedById)
     .then(element => {
       if (element.length > 0) {
-        console.log('work');
         const catInfo = element[0];
         const catBreed = catInfo.breeds[0];
 
@@ -61,11 +70,18 @@ function showSelectedDbreed() {
 
         refs.infoContainer.style.display = 'flex';
       } else {
-        console.log('No cat found for the given breed ID');
+        throw new Error('No cat found for the given breed ID');
       }
     })
     .catch(() => {
-      console.log('Oops! Something went wrong! Try reloading the page!');
+      Notiflix.Notify.failure(
+        'Oops',
+        'Something went wrong, try reloading the page.',
+        'Ok'
+      );
+      refs.error.style.display = 'block';
     })
-    .finally(() => {});
+    .finally(() => {
+      refs.loader.style.display = 'none';
+    });
 }

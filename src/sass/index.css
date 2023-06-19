@@ -1,6 +1,7 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 .example {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   background-color: #fff;
   color: #2f2f37;
@@ -18,9 +19,31 @@
   border-radius: 2px;
 }
 
-.example .background {
-  height: 240px;
-  background-image: url("../images/logo.png");
-  background-size: cover;
-  background-position: center;
-}/*# sourceMappingURL=index.css.map */
+img {
+  max-width: 35%;
+  display: block;
+} /*# sourceMappingURL=index.css.map */
+
+.breed-select {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  border: 2px solid skyblue;
+  border-radius: 5px;
+}
+
+.breed-select:hover {
+  background-color: lightskyblue;
+}
+
+.cat-info {
+  padding: 5px 20px;
+  width: 80%;
+}
+
+.cat-info-style {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
