@@ -65,7 +65,7 @@ function showSelectedDbreed() {
 
         refs.catImg.src = catInfo.url;
         refs.breedName.textContent = catBreed.name;
-        refs.breedDescription.textContent = catBreed.breedDescription;
+        refs.breedDescription.textContent = catBreed.description;
         refs.breedTemperament.textContent = catBreed.temperament;
 
         refs.infoContainer.style.display = 'flex';
